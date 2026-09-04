@@ -1,14 +1,11 @@
 import sys
-import os
 from pathlib import Path
 
-curr_dir = Path(__file__).resolve().parent
-backend_dir = curr_dir.parent
+# Ensure backend directory is in sys.path
+CURRENT_DIR = Path(__file__).resolve().parent
+BACKEND_DIR = CURRENT_DIR.parent
 
-if str(backend_dir) not in sys.path:
-    sys.path.insert(0, str(backend_dir))
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
 
-try:
-    from app.main import app
-except ImportError:
-    from backend.app.main import app
+from app.main import app
