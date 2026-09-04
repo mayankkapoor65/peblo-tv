@@ -3,12 +3,24 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 from sqlalchemy.orm import DeclarativeBase
 from app.config import settings
 
+import os
+from sqlalchemy.pool import NullPool
+
+# Serverless engine config
+is_serverless = bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME") or os.environ.get("LAMBDA_TASK_ROOT"))
+
+engine_kwargs = {
+    "echo": False,
+    "future": True,
+    "pool_pre_ping": True,
+}
+if is_serverless:
+    engine_kwargs["poolclass"] = NullPool
+
 # Async engine for FastAPI
 engine = create_async_engine(
     settings.DATABASE_URL,
-    echo=False,
-    future=True,
-    pool_pre_ping=True
+    **engine_kwargs
 )
 
 # Async session factory

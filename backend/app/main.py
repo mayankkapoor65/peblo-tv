@@ -15,16 +15,25 @@ from app.api import auth, admin_shows, admin_seasons, admin_episodes, admin_artw
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Ensure local storage directory exists
-    storage_path = Path(settings.STORAGE_LOCAL_DIR)
-    storage_path.mkdir(parents=True, exist_ok=True)
+    try:
+        storage_path = Path(settings.STORAGE_LOCAL_DIR)
+        storage_path.mkdir(parents=True, exist_ok=True)
+    except Exception as e:
+        print(f"Notice: Storage directory setup: {e}")
     
-    # Auto-create tables in development if not using alembic directly
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    # Auto-create tables if needed
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+    except Exception as e:
+        print(f"Notice: Database metadata sync: {e}")
         
     yield
     # Shutdown
-    await engine.dispose()
+    try:
+        await engine.dispose()
+    except Exception:
+        pass
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -45,13 +54,16 @@ app.add_middleware(
 
 # Static file serving for local storage provider
 if settings.STORAGE_BACKEND.lower() == "local":
-    local_dir = Path(settings.STORAGE_LOCAL_DIR)
-    local_dir.mkdir(parents=True, exist_ok=True)
-    app.mount(
-        settings.STORAGE_PUBLIC_URL_PREFIX,
-        StaticFiles(directory=str(local_dir), html=False),
-        name="storage"
-    )
+    try:
+        local_dir = Path(settings.STORAGE_LOCAL_DIR)
+        local_dir.mkdir(parents=True, exist_ok=True)
+        app.mount(
+            settings.STORAGE_PUBLIC_URL_PREFIX,
+            StaticFiles(directory=str(local_dir), html=False),
+            name="storage"
+        )
+    except Exception as e:
+        print(f"Notice: Static storage mount skipped: {e}")
 
 # Include Routers
 app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
@@ -73,6 +85,17 @@ app.include_router(admin_validation.router)
 # Public catalog endpoints (mounted at root `/catalog` and `/catalog/search` per spec)
 app.include_router(catalog.router)
 app.include_router(catalog.router, prefix=settings.API_V1_PREFIX)
+
+@app.get("/", tags=["Root"])
+async def root():
+    return {
+        "status": "online",
+        "service": settings.PROJECT_NAME,
+        "version": settings.VERSION,
+        "docs": "/docs",
+        "health": "/health",
+        "catalog": "/catalog",
+    }
 
 @app.get("/health", tags=["Health & Monitoring"])
 async def health_check(db: AsyncSession = Depends(get_db)):

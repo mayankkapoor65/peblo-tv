@@ -1,3 +1,4 @@
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 from typing import Optional
@@ -25,7 +26,11 @@ class Settings(BaseSettings):
     # Storage Configuration
     STORAGE_BACKEND: str = Field(default="local", description="'local' or 's3'")
     STORAGE_LOCAL_DIR: str = Field(
-        default=str(Path(__file__).resolve().parent.parent.parent / "storage_data"),
+        default="/tmp/storage_data" if (
+            "VERCEL" in os.environ or 
+            "AWS_LAMBDA_FUNCTION_NAME" in os.environ or 
+            "LAMBDA_TASK_ROOT" in os.environ
+        ) else str(Path(__file__).resolve().parent.parent.parent / "storage_data"),
         description="Local directory for file storage"
     )
     STORAGE_PUBLIC_URL_PREFIX: str = Field(
