@@ -1,0 +1,291 @@
+[
+  {
+    "title": "Neon Grid: Tokyo 2099",
+    "slug": "neon-grid-tokyo-2099",
+    "synopsis": "In a sprawling cyberpunk metropolis, rogue netrunners uncover an AI entity manipulating memories across the subterranean megacity network.",
+    "category": "Sci-Fi / Cyberpunk",
+    "section": "Trending Now",
+    "status": "published",
+    "sort_order": 1,
+    "poster_color": "#0ea5e9",
+    "banner_color": "#0369a1",
+    "seasons": [
+      {
+        "season_number": 0,
+        "title": "Trailers & Teasers",
+        "synopsis": "Official launch trailer and deep-dive lore teasers.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-neon-t1",
+            "language": "en",
+            "title": "Official Season 1 Reveal Trailer",
+            "synopsis": "Experience the neon-soaked underworld of Tokyo 2099.",
+            "duration_seconds": 145,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+          }
+        ]
+      },
+      {
+        "season_number": 1,
+        "title": "Season 1: Zero Day",
+        "synopsis": "The signal activates and the netrunner rebellion begins.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-neon-s01e01",
+            "language": "en",
+            "title": "Signal Breach",
+            "synopsis": "Kenji stumbles upon encrypted packets bypassing the Shibuya firewall.",
+            "duration_seconds": 3200,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          },
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-neon-s01e01",
+            "language": "es",
+            "title": "Brecha de Señal",
+            "synopsis": "Kenji tropieza con paquetes cifrados que evitan el cortafuegos de Shibuya.",
+            "duration_seconds": 3200,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          },
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-neon-s01e01",
+            "language": "ja",
+            "title": "シグナル・ブリーチ",
+            "synopsis": "ケンジは渋谷のファイアウォールを迂回する暗号化パケットに遭遇する。",
+            "duration_seconds": 3200,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          },
+          {
+            "episode_number": 2,
+            "content_group_id": "cg-neon-s01e02",
+            "language": "en",
+            "title": "Ghost in the Wire",
+            "synopsis": "A rogue protocol leaves phantom traces throughout the high-speed transit nexus.",
+            "duration_seconds": 2980,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+          },
+          {
+            "episode_number": 2,
+            "content_group_id": "cg-neon-s01e02",
+            "language": "ja",
+            "title": "ワイヤの亡霊",
+            "synopsis": "高速輸送ネクサス全体に幻の痕跡を残すプロトコル。",
+            "duration_seconds": 2980,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Chronicles of the Void",
+    "slug": "chronicles-of-the-void",
+    "synopsis": "A deep-space exploratory crew aboard the USSC Horizon discovers a Dyson sphere pulsing with temporal anomalies.",
+    "category": "Sci-Fi / Mystery",
+    "section": "Trending Now",
+    "status": "published",
+    "sort_order": 2,
+    "poster_color": "#8b5cf6",
+    "banner_color": "#6d28d9",
+    "seasons": [
+      {
+        "season_number": 0,
+        "title": "Trailers & Promos",
+        "synopsis": "Teaser trailer featuring Dr. Aris Thorne's audio log.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-void-t1",
+            "language": "en",
+            "title": "Dyson Anomaly Teaser",
+            "synopsis": "The first encounter with the megastructure.",
+            "duration_seconds": 110,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+          }
+        ]
+      },
+      {
+        "season_number": 1,
+        "title": "Season 1: Event Horizon",
+        "synopsis": "Entering the megastructure perimeter.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-void-s01e01",
+            "language": "en",
+            "title": "The Megastructure",
+            "synopsis": "The crew enters orbit around an ancient celestial construct.",
+            "duration_seconds": 3450,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+          },
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-void-s01e01",
+            "language": "hi",
+            "title": "विशाल संरचना",
+            "synopsis": "चालक दल एक प्राचीन आकाशीय निर्माण के चारों ओर कक्षा में प्रवेश करता है।",
+            "duration_seconds": 3450,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+          },
+          {
+            "episode_number": 2,
+            "content_group_id": "cg-void-s01e02",
+            "language": "en",
+            "title": "Echoes of Silence",
+            "synopsis": "Sensors pick up biological rhythms from inside the metallic core.",
+            "duration_seconds": 3120,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Shadows of the Dynasty",
+    "slug": "shadows-of-the-dynasty",
+    "synopsis": "Power struggles, betrayal, and courtroom intrigue in 16th-century Kyoto as clans fight for sovereignty.",
+    "category": "Historical Drama",
+    "section": "Critically Acclaimed Dramas",
+    "status": "published",
+    "sort_order": 3,
+    "poster_color": "#e11d48",
+    "banner_color": "#9f1239",
+    "seasons": [
+      {
+        "season_number": 1,
+        "title": "Season 1: The Rising Sun",
+        "synopsis": "War erupts across the northern provinces.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-dynasty-s01e01",
+            "language": "en",
+            "title": "The Blood Oath",
+            "synopsis": "Lord Kuroda forges a pact that will reshape the realm.",
+            "duration_seconds": 3600,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4"
+          },
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-dynasty-s01e01",
+            "language": "ja",
+            "title": "血の誓い",
+            "synopsis": "黒田公は領域を作り変える盟約を結ぶ。",
+            "duration_seconds": 3600,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4"
+          },
+          {
+            "episode_number": 2,
+            "content_group_id": "cg-dynasty-s01e02",
+            "language": "en",
+            "title": "Whispers in the Garden",
+            "synopsis": "Spies infiltrate the inner chambers before the winter solstice.",
+            "duration_seconds": 3480,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Nordic Mystery: Dark Fjords",
+    "slug": "nordic-mystery-dark-fjords",
+    "synopsis": "A detective haunted by her past returns to her isolated hometown to investigate an impossible disappearance.",
+    "category": "Crime / Thriller",
+    "section": "Critically Acclaimed Dramas",
+    "status": "published",
+    "sort_order": 4,
+    "poster_color": "#0d9488",
+    "banner_color": "#115e59",
+    "seasons": [
+      {
+        "season_number": 1,
+        "title": "Season 1: Ice Fracture",
+        "synopsis": "The frozen lake surrenders its secrets.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-fjords-s01e01",
+            "language": "en",
+            "title": "Frozen Silence",
+            "synopsis": "Detective Astrid arrives in Vik as the first winter blizzard hits.",
+            "duration_seconds": 3150,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+          },
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-fjords-s01e01",
+            "language": "es",
+            "title": "Silencio Helado",
+            "synopsis": "La detective Astrid llega a Vik cuando azota la primera tormenta.",
+            "duration_seconds": 3150,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Solaris Expedition",
+    "slug": "solaris-expedition",
+    "synopsis": "Humanity's first voyage to harness energy directly from the Sun's corona meets unexpected resistance.",
+    "category": "Sci-Fi / Adventure",
+    "section": "New Releases",
+    "status": "published",
+    "sort_order": 5,
+    "poster_color": "#f59e0b",
+    "banner_color": "#b45309",
+    "seasons": [
+      {
+        "season_number": 1,
+        "title": "Season 1: Corona Entry",
+        "synopsis": "The Helios spacecraft descends past the solar flare shield.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-solaris-s01e01",
+            "language": "en",
+            "title": "Into the Fire",
+            "synopsis": "The thermal shields reach maximum tolerance as unexpected solar flares ignite.",
+            "duration_seconds": 2890,
+            "stream_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackSeeTheWorld.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Draft Demo: Unassigned Section",
+    "slug": "draft-demo-unassigned-section",
+    "synopsis": "Demonstrates the validation report blocker engine when a show is missing its section or artwork.",
+    "category": "Test / Demo",
+    "section": null,
+    "status": "draft",
+    "sort_order": 99,
+    "poster_color": "#64748b",
+    "banner_color": "#475569",
+    "is_draft_demo": true,
+    "seasons": [
+      {
+        "season_number": 1,
+        "title": "Season 1",
+        "synopsis": "A sample season.",
+        "episodes": [
+          {
+            "episode_number": 1,
+            "content_group_id": "cg-draft-ep1",
+            "language": "en",
+            "title": "Unfinished Pilot",
+            "synopsis": "Episode missing artwork and duration.",
+            "duration_seconds": 0,
+            "stream_url": null,
+            "missing_thumbnail": true
+          }
+        ]
+      }
+    ]
+  }
+]

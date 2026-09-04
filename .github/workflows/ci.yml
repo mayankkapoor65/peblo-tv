@@ -1,0 +1,152 @@
+name: Peblo TV Mini Pipeline (CI/CD)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  backend-checks:
+    name: Backend Lint & Pytest Suite
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: peblo_tv_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install ruff
+
+      - name: Lint with Ruff
+        run: |
+          ruff check backend/app
+
+      - name: Run Pytest Test Suite
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/peblo_tv_test
+          SYNC_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/peblo_tv_test
+          STORAGE_BACKEND: local
+          STORAGE_LOCAL_DIR: ./storage_test
+        run: |
+          cd backend
+          pytest -v
+
+  frontend-checks:
+    name: Frontend Typecheck & Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [cms, viewer]
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: ${{ matrix.app }}/package.json
+
+      - name: Install Dependencies
+        run: |
+          cd ${{ matrix.app }}
+          npm install
+
+      - name: Typecheck TypeScript
+        run: |
+          cd ${{ matrix.app }}
+          npm run build
+
+  docker-build:
+    name: Build Multi-Tier Docker Images
+    needs: [backend-checks, frontend-checks]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Backend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          tags: peblo-backend:ci-latest
+
+      - name: Build CMS Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cms
+          push: false
+          tags: peblo-cms:ci-latest
+
+      - name: Build Viewer Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./viewer
+          push: false
+          tags: peblo-viewer:ci-latest
+
+  deploy-dryrun:
+    name: Production Deployment (Dry-Run / Spec)
+    needs: [docker-build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    steps:
+      - name: Dry-Run Deploy Explanation
+        run: |
+          echo "=========================================================================="
+          echo "🚀 PEBLO TV PRODUCTION DEPLOYMENT PIPELINE (DRY-RUN)"
+          echo "=========================================================================="
+          echo "In a live cloud environment, this step executes the following automated steps:"
+          echo ""
+          echo "1. AUTHENTICATE CONTAINER REGISTRY:"
+          echo "   - Authenticate with Amazon ECR, Google Artifact Registry, or GitHub GHCR"
+          echo "   - Example: aws ecr get-login-password | docker login --username AWS --password-stdin \$REGISTRY"
+          echo ""
+          echo "2. TAG AND PUSH IMMUTABLE IMAGES:"
+          echo "   - Tag images with Git commit SHA: \$REGISTRY/peblo-backend:\${{ github.sha }}"
+          echo "   - Push images to container registry"
+          echo ""
+          echo "3. RUN DATABASE MIGRATIONS:"
+          echo "   - Execute a pre-deploy ephemeral Kubernetes Job / ECS Task:"
+          echo "   - Command: alembic upgrade head"
+          echo "   - Guaranteed zero-downtime backwards-compatible migration step"
+          echo ""
+          echo "4. ROLLING UPDATE DEPLOYMENT:"
+          echo "   - Update Kubernetes Deployment / Amazon ECS service / Cloudflare Workers"
+          echo "   - kubectl set image deployment/peblo-backend backend=\$REGISTRY/peblo-backend:\${{ github.sha }}"
+          echo "   - kubectl rollout status deployment/peblo-backend --timeout=120s"
+          echo ""
+          echo "5. PURGE CDN EDGE CACHES:"
+          echo "   - Invalidate Cloudflare / CloudFront edge cache for /catalog endpoint"
+          echo "=========================================================================="

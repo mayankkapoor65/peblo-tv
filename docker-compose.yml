@@ -1,0 +1,67 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: peblo-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: peblo_tv
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d peblo_tv"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: peblo-backend
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=true
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/peblo_tv
+      - SYNC_DATABASE_URL=postgresql://postgres:postgres@postgres:5432/peblo_tv
+      - STORAGE_BACKEND=local
+      - STORAGE_LOCAL_DIR=/app/storage_data
+      - STORAGE_PUBLIC_URL_PREFIX=/storage
+      - SECRET_KEY=peblo-tv-super-secret-key-change-in-production
+    ports:
+      - "8000:8000"
+    volumes:
+      - storage_data:/app/storage_data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  cms:
+    build:
+      context: ./cms
+      dockerfile: Dockerfile
+    container_name: peblo-cms
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  viewer:
+    build:
+      context: ./viewer
+      dockerfile: Dockerfile
+    container_name: peblo-viewer
+    restart: unless-stopped
+    ports:
+      - "5174:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  storage_data:
